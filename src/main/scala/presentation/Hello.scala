@@ -7,6 +7,6 @@ import org.scalajs.jquery.jQuery
 
 object Hello extends JSApp {
   def main() = {
-    jQuery("body").append("<p>Hello, jQuery!</p>")
+    jQuery("body").append("<p>Hello, JavaScript Dependencies!</p>")
   }
 }
