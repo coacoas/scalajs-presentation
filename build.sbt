@@ -1,18 +1,29 @@
 enablePlugins(ScalaJSPlugin)
 
+workbenchSettings
+
 scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
-  "be.doeraene" %%% "scalajs-jquery" % "0.8.0",
+  "org.monifu"  %%% "monifu" % "1.0-RC3",
+  "com.github.japgolly.scalajs-react" %%% "core" % "0.9.2",
+  "com.github.japgolly.fork.scalaz" %%% "scalaz-core" % "7.1.2",
   "com.lihaoyi" %%% "utest" % "0.3.0" % "test"
 )
 
-jsDependencies += RuntimeDOM
+jsDependencies ++= Seq(
+  RuntimeDOM,
+  "org.webjars" % "react" % "0.12.2" / "react-with-addons.js" commonJSName "React")
+
 
 testFrameworks += new TestFramework("utest.runner.Framework")
 
 skip in packageJSDependencies := false
 
 scalaJSStage in Global := FastOptStage
-persistLauncher in Compile := true
-persistLauncher in Test := false
+
+bootSnippet := "presentation.Demo.main()"
+
+refreshBrowsers <<= refreshBrowsers.triggeredBy(fastOptJS in Compile)
+
+
