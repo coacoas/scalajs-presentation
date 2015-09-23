@@ -46,7 +46,7 @@ class Demo {
       .tumblingBuffer(33.millis)
       .scan(Vector[Circle]()) { (circles, newCircles) =>
       val bigger = circles.map(c => c.copy(radius = c.radius + 1))
-        .filter(_.radius <= 40)
+        .filter(_.radius <= 30)
 
       bigger ++ newCircles
     }

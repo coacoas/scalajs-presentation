@@ -5,7 +5,7 @@ workbenchSettings
 scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
-  "org.monifu"  %%% "monifu" % "1.0-RC3",
+  "org.monifu"  %%% "monifu" % "1.0-RC2",
   "com.github.japgolly.scalajs-react" %%% "core" % "0.9.2",
   "com.github.japgolly.fork.scalaz" %%% "scalaz-core" % "7.1.2",
   "com.lihaoyi" %%% "utest" % "0.3.0" % "test"
