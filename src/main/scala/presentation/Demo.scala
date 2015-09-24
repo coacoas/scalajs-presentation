@@ -1,58 +1,78 @@
 package presentation
 
-
-import japgolly.scalajs.react.React
 import monifu.concurrent.Implicits.globalScheduler
-import monifu.concurrent.schedulers.AsyncScheduler
-import monifu.reactive.observables.ConnectableObservable
-import monifu.reactive.{Ack, Observable}
+import monifu.reactive.Observable
 import org.scalajs.dom
 import org.scalajs.dom.ext.Color
-import org.scalajs.dom.raw.MouseEvent
-import presentation.Components.base
+import org.scalajs.dom.html
+import org.scalajs.dom.raw.CanvasRenderingContext2D
 
 import scala.concurrent.duration._
 import scala.scalajs.js.annotation.JSExport
 import scala.util.Random
-import presentation.extensions.reactive.ext._
 
-case class Point(x: Double, y: Double)
-case class Circle(center: Point, radius: Int, color: Color) {
-  def colorString: String = f"#${color.r}%02x${color.g}%02x${color.b}%02x".toUpperCase
-
+case class Point(x: Int, y: Int) {
+  def +(p: Point) = Point(x + p.x, y + p.y)
+  def -(p: Point) = Point(x - p.x, y - p.y)
+  def /(d: Int) = Point(x / d, y / d)
 }
+
+case class Rectangle(x: Int, y: Int, width: Int, height: Int)
 
 @JSExport
 class Demo {
+  @JSExport
+  def main(canvas: html.Canvas): Unit = {
+    canvas.width = canvas.parentElement.clientWidth
+    canvas.height = canvas.parentElement.clientHeight
+
+    val corners = findCorners(canvas)
+    val ctx = canvas.getContext("2d").asInstanceOf[dom.CanvasRenderingContext2D]
+
+    Observable.interval(20.seconds).foreach { _ => clear(ctx) }
+
+    Observable.repeatTask(corners(Random.nextInt(3)))
+      .scan(corners(0)) { (last, corner) => (last + corner) / 2 }
+      .foreach(drawPoint(ctx))
+  }
+
+  def clear(ctx: CanvasRenderingContext2D) = {
+    ctx.fillStyle = "black"
+    ctx.fillRect(ctx.canvas.clientLeft, ctx.canvas.clientTop, ctx.canvas.width, ctx.canvas.height)
+  }
+
+  def findCorners(canvas: html.Canvas): Vector[Point] = {
+    val height = math.min(canvas.height, canvas.width)
+    val center = Point(canvas.width / 2, canvas.height / 2)
+
+    val left = center.x - (height / 2)
+    val top = center.y - (height / 2)
+    val right = center.x + (height / 2)
+    val bottom = center.y + (height / 2)
+
+    Vector(
+      Point(left, bottom),
+      Point(center.x, top),
+      Point(right, bottom))
+  }
+
+  def drawPoint(ctx: CanvasRenderingContext2D)(point: Point) = {
+    def color(p: Point) = {
+      val normalize = (ctx.canvas.width * 2) / (ctx.canvas.height.toDouble + p.y)
+      val r = (p.x * normalize).toInt
+      val g = ((255 * normalize / 2) - p.x).toInt
+      val b = (255 * p.y / ctx.canvas.height.toDouble).toInt
+      Color(r, g, b)
+    }
+
+    ctx.fillStyle = color(point).toString
+    ctx.fillRect(point.x, point.y, 1, 1)
+  }
 
   def randomColor: Color = {
     val r = Random.nextInt(255)
     val g = Random.nextInt(255)
     val b = Random.nextInt(255)
     Color(r, g, b)
-  }
-
-  @JSExport
-  def main(root: dom.Node): Unit = {
-    val mousemove: ConnectableObservable[Point] = Observable.create[Point] { subscriber =>
-      dom.document.onmousemove = (ev: MouseEvent) => {
-        subscriber.onNext(Point(ev.pageX, ev.pageY))
-      }
-    }.publish
-    mousemove.connect()
-
-    val circleSeq = mousemove
-      .map(p => Circle(p, 1, randomColor))
-      .tumblingBuffer(33.millis)
-      .scan(Vector[Circle]()) { (circles, newCircles) =>
-      val bigger = circles.map(c => c.copy(radius = c.radius + 1))
-        .filter(_.radius <= 30)
-
-      bigger ++ newCircles
-    }
-
-    circleSeq.foreach { elements =>
-      React.render(Components.circles(elements), root)
-    }
   }
 }

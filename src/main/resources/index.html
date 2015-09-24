@@ -1,18 +1,19 @@
 <html>
 <head>
-  <title>Scala.JS Demonstrations</title>
-  <link rel="stylesheet" href="css/demo.css"/>
+    <title>Scala.JS Demonstrations</title>
+    <link rel="stylesheet" href="css/demo.css"/>
 </head>
 <body>
-  <div id="svg"></div>
+<div id="pos"></div>
+<canvas id="canvas" class="abs"></canvas>
 
-  <script src="/workbench.js"></script>
-  <script src="../scala-js-jsdeps.js"></script>
-  <script src="../scala-js-fastopt.js"></script>
-  <script >
+<script src="/workbench.js"></script>
+<script src="../scala-js-jsdeps.js"></script>
+<script src="../scala-js-fastopt.js"></script>
+<script>
     console.log("Loading javascript");
     var demo = new presentation.Demo;
-    demo.main(document.getElementById("svg"));
-  </script>
+    demo.main(document.getElementById("canvas"));
+</script>
 </body>
 </html>
