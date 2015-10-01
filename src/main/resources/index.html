@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="css/demo.css"/>
 </head>
 <body>
-  <div id="svg"></div>
+  <canvas id="canvas"></canvas>
 
   <script src="/workbench.js"></script>
   <script src="../scala-js-jsdeps.js"></script>
@@ -12,7 +12,7 @@
   <script >
     console.log("Loading javascript");
     var demo = new presentation.Demo;
-    demo.main(document.getElementById("svg"));
+    demo.main(document.getElementById("canvas"));
   </script>
 </body>
 </html>
