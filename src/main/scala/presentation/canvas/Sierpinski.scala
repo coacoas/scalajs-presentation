@@ -4,9 +4,12 @@ import org.scalajs.dom
 import org.scalajs.dom.html._
 import presentation.geometry.Point
 
+import scala.scalajs.js.annotation.JSExport
 import scala.util.Random
 
+@JSExport
 class Sierpinski {
+  @JSExport
   def triangle(canvas: Canvas) = {
     canvas.height = 255
     canvas.width = 255
@@ -36,6 +39,6 @@ class Sierpinski {
       ctx.fillRect(p.x, p.y, 1, 1)
     }
 
-    dom.setInterval(() => run, 50)
+    dom.setInterval(() => run, 20)
   }
 }

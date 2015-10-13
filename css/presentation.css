@@ -1,3 +1,19 @@
 .strike {
     text-decoration: line-through;
 }
+
+.reveal .slides section .fragment.bold {
+    opacity: 1;
+    visibility: visible;
+}
+.reveal .slides section .fragment.bold.visible {
+    font-weight: bold;
+}
+
+.reveal .slides section .left {
+    float: left;
+}
+
+.reveal .slides section .right {
+    float: right;
+}

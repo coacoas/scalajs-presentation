@@ -5,3 +5,8 @@ body {
 .svgpos {
     position: absolute;
 }
+
+body div #svg {
+
+}
+

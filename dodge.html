@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Scala.JS Demonstrations</title>
+    <link rel="stylesheet" href="css/dodge.css"/>
+</head>
+<body>
+<div>
+    Use
+    <button>A</button>,
+    <button>S</button>,
+    <button>D</button>
+    <button>W</button>
+    buttons to control your dot. Don't touch the other dots!
+</div>
+<canvas id="canvas"></canvas>
+
+<script src="generated/scala-js-jsdeps.js"></script>
+<script src="generated/scala-js-opt.js"></script>
+<script >
+    var demo = new presentation.canvas.Dodge;
+    demo.main(document.getElementById("canvas"));
+</script>
+</body>
+</html>
