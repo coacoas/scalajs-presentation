@@ -1,7 +1,4 @@
-
-
 scalaVersion := "2.11.7"
-val generatedDir = file("generated")
 lazy val root = Project("scala-js", file("."))
   .enablePlugins(ScalaJSPlugin)
 
@@ -25,10 +22,9 @@ testFrameworks += new TestFramework("utest.runner.Framework")
 
 skip in packageJSDependencies := false
 scalaJSStage in Global := FastOptStage
-workbenchSettings
-bootSnippet := "presentation.pong.Pong().main()"
 
 /* move these files out of target/. Also sets up same file for both fast and full optimization */
+val generatedDir = file("generated")
 crossTarget  in (Compile, fullOptJS)                     := generatedDir
 crossTarget  in (Compile, fastOptJS)                     := generatedDir
 crossTarget  in (Compile, packageJSDependencies)         := generatedDir
