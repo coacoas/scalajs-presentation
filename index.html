@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Bringing the Backend Forward</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/presentation.css">
+    <script src="generated/scala-js-jsdeps.js"></script>
+    <script src="generated/scala-js-opt.js"></script>
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h1>Scala.js</h1>
+            <img width="225" height="255" src="images/scala-js-logo.svg" alt="Scala.js Logo">
+        </section>
+
+        <section>
+            <h3 align="left">Bill Carlson</h3>
+            <div class="left">
+                <div>
+                    <ul>
+                        <li>Primarily Scala/Java Programmer</li>
+                        <li>Really, I program in anything I get paid to program in</li>
+                        <li>Lately, lots of Javascript/Coffeescript</li>
+                    </ul>
+                </div>
+                <br>
+                <div>
+                    <div align="left">Twitter: <a href="http://www.twitter.com/coacoas">@coacoas</a></div>
+                    <div align="left">Github: <a href="http://www.github.com/coacoas">http://www.github.com/coacoas</a></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <section>
+
+                <h2>Disclaimer</h2>
+                <blockquote>
+                    While I hope this presentation will be informative, there
+                    will be some references to perceived shortcomings in
+                    Javascript. Any opinions expressed in this talk are
+                    mine and mine alone.
+                </blockquote>
+                <blockquote class="fragment">
+                    s/Javascript/Java/g
+                </blockquote>
+
+            </section>
+            <section>
+                <h2>Disclaimer</h2>
+
+                <blockquote>
+                    Please bear in mind that this is all very new, and I am
+                    not an experienced Scala.js developer. Most of the Scala.js
+                    code I have written was done explicitly for this
+                    presentation, and most of the code in this presentation is not mine.
+                    <div class="fragment">Please be kind.</div>
+                </blockquote>
+                <div class="fragment">
+                    <strong>But still ask questions!</strong>
+                </div>
+            </section>
+        </section>
+
+        <!-- Example of nested vertical slides -->
+        <section>
+            <section>
+                <h1>Backend vs Frontend</h1>
+            </section>
+            <section>
+                <h5>"Back-End" Languages</h5>
+                <ul>
+                    <li class="fragment">C</li>
+                    <li class="fragment">C++</li>
+                    <li class="fragment">Java</li>
+                    <li class="fragment">Go</li>
+                    <li class="fragment">Ruby</li>
+                    <li class="fragment">Python</li>
+                    <li class="fragment">PHP</li>
+                    <li class="fragment">.NET</li>
+                    <li class="fragment">Scala</li>
+                    <li class="fragment">Groovy</li>
+                    <li class="fragment">Clojure</li>
+                    <li class="fragment">...</li>
+                </ul>
+            </section>
+            <section>
+                <h5>"Front-End" Languages</h5>
+                <ul>
+                    <li class="fragment">Javascript</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Why?</h2>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Scala<span class="fragment fade-out">.js</span></h1>
+            </section>
+            <section>
+                <h3>What is Scala?</h3>
+                <blockquote>
+                    Scala is a modern multi-paradigm programming language designed to express common programming patterns in a concise, elegant, and <span class="fragment bold">type-safe</span> way. It smoothly integrates features of object-oriented and functional languages
+                </blockquote>
+                <caption><small><a href="http://docs.scala-lang.org/tutorials/tour/tour-of-scala.html">http://docs.scala-lang.org/tutorials/tour/tour-of-scala.html</a></small></caption>
+            </section>
+            <section>
+                <h2><strong>Sca</strong>lable <strong>La</strong>nguage</h2>
+            </section>
+            <section>
+                <h2>A Whirlwind Tour of Scala</h2>
+                <h4>(Demo)</h4>
+                <aside class="notes" data-markdown>
+                    Things to be sure to demo:
+                    - immutability (val/var)
+                    - classes/objects (OO)
+                    - functions
+                    - expressions vs statements
+                    - collections
+                    - pattern matching
+                </aside>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Scala<span class="fragment fade-in">.js</span></h1>
+            </section>
+            <section>
+                <h2>What is Scala.js?</h2>
+                <blockquote>Scala.js compiles Scala code to JavaScript, allowing you to write your web application entirely in Scala!</blockquote>
+                <caption><small>http://www.scala-js.org/</small></caption>
+            </section>
+            <section>
+                <h2>Features of Scala.js</h2>
+                <ul>
+                    <li class="fragment">Full use of Scala - including macros!
+                        <small class="fragment">(some exceptions apply)</small></li>
+                    <li class="fragment">100% Javascript Interop</li>
+                    <li class="fragment">Type-safe</li>
+                    <li class="fragment">Integrated directly with sbt</li>
+                    <li class="fragment">Type-safe</li>
+                    <li class="fragment">Generates "very" efficient code</li>
+                    <li class="fragment"><strong class="large">Type-safe!</strong></li>
+                </ul>
+            </section>
+            <section>
+                <h3>OK, Why is type-safety such a big deal?</h3>
+                <ul class="fragment">
+                    <li>Removes a full class of errors</li>
+                    <li>Sanity in refactoring</li>
+                    <li>IDE Interaction</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Types vs Tests</h3>
+                <h2 class="fragment">Types AND Tests</h2>
+            </section>
+            <section>
+                <h3>Where do these types come from? </h3>
+                <div class="fragment">Create <em>facades</em> for untyped Javascript libraries</div>
+                <div class="fragment">Function signatures only, not implementation</div>
+                <div class="fragment">Don't have to implement <em>everything</em></div>
+                <div class="fragment">Should only take a couple minutes</div>
+                <div class="fragment"><a href="https://github.com/sjrd/scala-js-ts-importer">Scala.js Typescript Definition Importer</a></div>
+            </section>
+            <section>
+                <h3>Facades already exist for popular libraries</h3>
+                <ul>
+                    <li>jQuery</li>
+                    <li>React</li>
+                    <li>Angular</li>
+                    <li>Bootstrap</li>
+                    <li>Google Maps</li>
+                    <li>D3</li>
+                    <li>Three.js</li>
+                    ... and <em>many</em> more
+                </ul>
+            </section>
+            <section>
+                <h3>But I don't wanna make a facade!</h3>
+                <div class="fragment">Sure. No problem.</div>
+                <code class="scala fragment">js.Dynamic.literal</code>
+            </section>
+            <section>
+                <h2>Example</h2>
+                <canvas id="sierpinski"></canvas>
+            </section>
+            <section>
+                <h2>The Code</h2>
+            <pre><code class="scala">
+package presentation.canvas
+
+import org.scalajs.dom
+import org.scalajs.dom.html._
+import presentation.geometry.Point
+
+import scala.scalajs.js.annotation.JSExport
+import scala.util.Random
+
+@JSExport
+class Sierpinski {
+  @JSExport
+  def triangle(canvas: Canvas) = {
+    canvas.height = 255
+    canvas.width = 255
+    val ctx = canvas.getContext("2d").asInstanceOf[dom.CanvasRenderingContext2D]
+
+    var count = 0
+    var p = Point(0, 0)
+    val corners = Seq(Point(255, 255), Point(0, 255), Point(128, 0))
+
+    def clear() = {
+      ctx.fillStyle = "black"
+      ctx.fillRect(0, 0, 255, 255)
+    }
+
+    def run = for (i <- 0 until 10){
+      if (count % 3000 == 0) clear()
+        count += 1
+      p = (p + corners(Random.nextInt(3))) / 2
+
+      val height = 512.0 / (255 + p.y)
+      val r = (p.x * height).toInt
+      val g = ((255-p.x) * height).toInt
+      val b = p.y
+      ctx.fillStyle = s"rgb($g, $r, $b)"
+
+      ctx.fillRect(p.x, p.y, 1, 1)
+    }
+
+    dom.setInterval(() => run, 50)
+  }
+}
+
+            </code></pre>
+                <caption><small>Mostly stolen from <a href="https://github.com/lihaoyi/workbench-example-app/blob/master/src/main/scala/example/ScalaJSExample.scala">Li Haoyi's GitHub</a></small></caption>
+            </section>
+            <section>
+                <h2>Demo time!</h2>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Why Scala.js?</h2>
+            </section>
+            <section data-transition="fade">
+                <div><a href="https://www.flickr.com/photos/nathansmith/4704268314">
+                    <img src="images/thegoodparts.jpg" alt="The 'good' parts?">
+                </a></div>
+                <div><small><a href="https://www.flickr.com/photos/nathansmith/4704268314">https://www.flickr.com/photos/nathansmith/4704268314</a></small></div>
+            </section>
+
+            <section data-transition="fade">
+                <img src="images/undefined.jpg" alt="Undefined is not a function!" />
+            </section>
+
+            <section data-transition="fade">
+                <div><a href="https://instagram.com/p/8YQAn3jF3c/"><img src="images/privatedom.jpg" alt="Whoo needs private?"></a></div>
+                <div><small><a href="https://t.co/oUJtecg9Ft">https://instagram.com/p/8YQAn3jF3c/</a></small></div>
+                <aside class="notes">Who needs public/private?</aside>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>How does it work?</h1>
+            </section>
+            <section>
+                <img src="images/compiling-linking.jpg" alt="">
+                <caption><small><a href="http://www.slideshare.net/scala-italy/alberto-paro-hands-on-scalajs/7">http://www.slideshare.net/scala-italy/alberto-paro-hands-on-scalajs/7</a></small></caption>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>What can I do with it?</h1>
+            </section>
+            <section>
+                <div class="fragment">
+                    Client-side Web Programming
+                </div>
+                <div class="fragment">Node.js Modules</div>
+                <div class="fragment"><a href="https://bchazalet.github.io/2015/07/19/scalajs-electron-skeleton/">Native GUI Application</a> (using Electron)</div>
+                <div class="fragment"><a href="https://github.com/chandu0101/sri">Sri - React Native Driver</a></div>
+                <div class="fragment"><em>Anything</em> you can do in Javascript!</div>
+                <div class="fragment">Pebble(?)</div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Why <em>not</em> use Scala.js?</h2>
+                <ul>
+                    <li class="fragment">You're not using Scala on the server</li>
+                    <li class="fragment">Existing code</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="http://www.scala-js.org">Scala.js</a></li>
+                    <li><a href="http://www.scala-js.org/doc/tutorial.html">Scala.js Tutorial</a></li>
+                    <li><a href="http://lihaoyi.github.io/hands-on-scala-js/">Hands-on Scala.js</a></li>
+                    <li><a href="http://www.scala-js-fiddle.com/">Scala-js-Fiddle</a></li>
+                    <li><a href="https://github.com/japgolly/scalajs-react">scalajs-react</a></li>
+                    <li><a href="https://github.com/greencatsoft/scalajs-angular">scalajs-angular</a></li>
+                </ul>
+
+                <h2>Demos</h2>
+                <ul>
+                    <li><a href="http://github.com/coacoas/scalajs-demo">http://github.com/coacoas/scalajs-demo</a></li>
+                    <li></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Thank you!</h2>
+                <h3>Any Questions?</h3>
+                <small>Presentation available at <a href="http://coacoas.github.io/scalajs-presentation">http://coacoas.github.io/scalajs-presentation</a></small>
+            </section>
+        </section>
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script src="target/scala-2.11/scala-js-jsdeps.js"></script>
+<script src="target/scala-2.11/scala-js-fastopt.js"></script>
+<script>
+    var demo = new presentation.canvas.Sierpinski;
+    demo.triangle(document.getElementById("sierpinski"))
+</script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'plugin/zoom-js/zoom.js', async: true},
+            {src: 'plugin/notes/notes.js', async: true}
+        ]
+    });
+
+</script>
+
+</body>
+</html>
