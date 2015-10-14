@@ -44,8 +44,8 @@ class Circles {
         bigger ++ newCircles
       }
 
-    mousemove.zip(circleSeq).foreach { zipped =>
-      React.render(Components.base(zipped), root)
+    circleSeq.foreach { circles =>
+      React.render(Components.circles(circles), root)
     }
   }
 }
